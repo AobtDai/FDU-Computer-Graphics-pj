@@ -10,16 +10,19 @@ img = []
 def setup():
     global player, fft, fftScale, cir_R, img
     size(1200, 800)
-    # player = minim.loadFile("tmusic.mp3")
-    player = minim.loadFile("Be Here Now.mp3")
-    player.loop()
+    player = minim.loadFile("tmusic.mp3")
+    # player = minim.loadFile("2.mp3")
+    # player = minim.loadFile("Hey Jude.mp3")
+    # player = minim.loadFile("Be Here Now.mp3")
+    # player.loop()
+    player.play()
     img.append(loadImage("0.png"))
     img.append(loadImage("1.png"))
     img.append(loadImage("2.png"))
     fft = FFT(player.bufferSize(), player.sampleRate())
     fftScale = 30 #test 
     cir_R = 100
-    frameRate(10)#test
+    frameRate(20)#test
     # colorMode(HSB)
 
 def draw():
@@ -82,7 +85,7 @@ def draw():
         image(img[cir[4]],cir[0],cir[1],100*cir[3],100*cir[3])
         # print(cir[0], cir[1], cir[2])
         cir[2] = cir[2] - cir_R/10
-        cir[3] = cir[3]-0.1
+        cir[3] = cir[3]-0.05
     # changeable parm:30
     
     point1x, point1y, pointnx, pointny = [0., 0., 0., 0.]
@@ -102,7 +105,7 @@ def draw():
         endXj = width/2 + cos(angle)*fftj
         endYj = height/2 + sin(angle)*fftj
         line(endXi,endYi, endXj,endYj)
-        # line(startX,startY, endXj,endYj)
+        line(startX,startY, endXj,endYj)
         
         if i==0:
             point1x = endXi
@@ -111,4 +114,9 @@ def draw():
             pointnx = endXj
             pointny = endYj
     line(point1x,point1y, pointnx,pointny)
+    # if player.isPlaying():
+    #     # saveFrame("/save1/music1-########.png")
+    #     print("Saving")
+    # else :
+    #     print("Finish")
     # delay(1000)
